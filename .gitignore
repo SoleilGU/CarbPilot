@@ -137,3 +137,20 @@ dist
 # Vite logs files
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
+
+# === CarbPilot-specific ignore rules ===
+
+# Client & Server node_modules (if both exist)
+client/node_modules/
+server/node_modules/
+
+# dotenv files
+server/.env
+.env
+
+# logs
+server/logs/
+client/logs/
+
+# IDE
+.vscode/
