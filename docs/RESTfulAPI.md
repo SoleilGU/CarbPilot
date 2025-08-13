@@ -81,7 +81,14 @@ Generate a 7-day carb cycling plan based on user profile
 
 ### POST /api/meal
 
-Submit one meal record
+Submit one meal record, system calculate the nutrients automatically
+
+Request Header:
+
+```
+Authorization: Bearer <token>
+Content-Type: application/json
+```
 
 Request Body:
 

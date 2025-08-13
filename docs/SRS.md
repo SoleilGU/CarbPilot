@@ -38,6 +38,7 @@ CarbPilot is a smart web application designed for users who want to manage weigh
 | F6  | History & Trends     | Displays last 7 days of meal records and visualizes intake trends                               |
 | F7  | AI Suggestions (opt) | Uses GPT to analyze daily intake and return human-readable diet suggestions                     |
 | F8  | Authentication (opt) | Allows user login/registration for data persistence across sessions/devices                     |
+| F9  | Calculation          | Calculate nutrients of ingredients after user inputing the name and gram of ingredients         |
 
 ---
 

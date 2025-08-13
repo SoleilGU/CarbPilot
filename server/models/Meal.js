@@ -10,10 +10,10 @@ const mealItemSchema = new mongoose.Schema({
     type: Number,
     required: true,
   },
-  kcal: Number,
-  carbs: Number,
-  protein: Number,
-  fat: Number,
+  kcal: { type: Number, required: true },
+  carbs: { type: Number, required: true },
+  protein: { type: Number, required: true },
+  fat: { type: Number, required: true },
 });
 
 const mealSchema = new mongoose.Schema(
@@ -33,10 +33,10 @@ const mealSchema = new mongoose.Schema(
       required: true,
     },
     items: [mealItemSchema],
-    totalKcal: Number,
-    totalCarbs: Number,
-    totalProtein: Number,
-    totalFat: Number,
+    totalKcal: { type: Number, required: true },
+    totalCarbs: { type: Number, required: true },
+    totalProtein: { type: Number, required: true },
+    totalFat: { type: Number, required: true },
   },
   {
     timestamps: true,
