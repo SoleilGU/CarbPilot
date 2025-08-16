@@ -1,11 +1,15 @@
 import { Routes, Route, Navigate, Link, useNavigate } from "react-router-dom";
+import PrivateRoute from "./components/PrivateRoute";
+import Dashboard from "./screens/Dashboard";
+import Meals from "./screens/Meals";
+import CarbPlanForm from "./screens/CarbPlanForm.jsx";
 import LoginScreen from "./screens/LoginScreen";
 import RegisterScreen from "./screens/RegisterScreen";
 import { useSelector, useDispatch } from "react-redux";
 import { useLogoutMutation } from "./slices/userApiSlice";
 import { logout } from "./slices/authSlice";
 
-// Card
+// Home
 function Home({ userInfo }) {
   return (
     <div className="cp-page">
@@ -92,15 +96,46 @@ export default function App() {
       </header>
 
       <Routes>
+        {/* Welcome Page */}
         <Route path="/" element={<Home userInfo={userInfo} />} />
+
+        {/* Protect Page */}
+        <Route
+          path="/meals"
+          element={
+            <PrivateRoute>
+              <Meals />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/dashboard"
+          element={
+            <PrivateRoute>
+              <Dashboard />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/carbplan"
+          element={
+            <PrivateRoute>
+              <CarbPlanForm />
+            </PrivateRoute>
+          }
+        />
+
+        {/* Public Page (if logged, redirect to /dashboard)*/}
         <Route
           path="/login"
-          element={userInfo ? <Navigate to="/" /> : <LoginScreen />}
+          element={userInfo ? <Navigate to="/dashboard" /> : <LoginScreen />}
         />
         <Route
           path="/register"
           element={userInfo ? <Navigate to="/" /> : <RegisterScreen />}
         />
+
+        {/* FallBack */}
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>
     </>
