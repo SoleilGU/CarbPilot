@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useGetMealsByDateQuery } from "../../slices/mealApiSlice";
 import { useGetCarbPlanQuery } from "../../slices/carbPlanApiSlice";
+import { skipToken } from "@reduxjs/toolkit/query/react";
 
 import MealsTable from "./MealsTable";
 import SummaryHeader from "./SummaryHeader";
@@ -28,10 +29,7 @@ export default function Dashboard() {
   } = useGetMealsByDateQuery({ userId: userInfo._id, date: today });
 
   // @desc Get user's carb plan
-  const { data: plan } = useGetCarbPlanQuery({
-    userId: userInfo._id,
-    date: today,
-  });
+  const { data: plan } = useGetCarbPlanQuery(userInfo?._id ?? skipToken);
 
   // @desc Summarize today's total carbs
   const todayCarbs = meals.reduce(
@@ -61,9 +59,6 @@ export default function Dashboard() {
 
         <div className="cp-rule" />
 
-        <h2 className="text-xl font-semibold text-slate-900 mb-3">
-          Today's Meals
-        </h2>
         <MealsTable loading={mLoading} meals={meals} />
       </div>
     </div>
