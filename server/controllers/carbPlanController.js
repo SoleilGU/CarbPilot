@@ -15,34 +15,8 @@ export const getCarbPlan = async (req, res) => {
   }
 };
 
-// Set or update carb plan
-// export const setCarbPlan = async (req, res) => {
-//   try {
-//     const { userId, tdee, carbPlan } = req.body;
-
-//     let plan = await CarbPlan.findOne({ user: userId });
-//     if (plan) {
-//       // Update existing plan
-//       plan.tdee = tdee;
-//       plan.carbPlan = carbPlan;
-//     } else {
-//       // Create new plan
-//       plan = new CarbPlan({
-//         user: userId,
-//         tdee,
-//         carbPlan,
-//       });
-//     }
-
-//     await plan.save();
-//     res.status(201).json(plan);
-//   } catch (error) {
-//     console.error("Error setting carb plan:", error);
-//     res.status(500).json({ message: "Server error" });
-//   }
-// };
 const ACT = { low: 1.375, moderate: 1.55, high: 1.725 };
-const CARB_PCT = { low: 0.25, medium: 0.45, high: 0.65 }; // 和前端保持一致
+const CARB_PCT = { low: 0.25, medium: 0.45, high: 0.65 };
 
 export const setCarbPlan = async (req, res) => {
   try {
@@ -64,7 +38,7 @@ export const setCarbPlan = async (req, res) => {
       return res.status(400).json({ message: "Invalid payload" });
     }
 
-    // 计算
+    // Calculate TDEE
     const bmr =
       gender === "male"
         ? 10 * w + 6.25 * h - 5 * a + 5
@@ -73,7 +47,7 @@ export const setCarbPlan = async (req, res) => {
     const tdee = Math.round(bmr * (ACT[activityLevel] || 1.55));
     const targetCarbs = Math.round((tdee * (CARB_PCT[carbType] || 0.45)) / 4);
 
-    // 一周 carb 计划（示例，可按需改）
+    // Weekly Carb Plan
     const weeklyPlan =
       carbType === "low"
         ? ["low", "low", "low", "low", "medium", "low", "low"]
